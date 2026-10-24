@@ -10,6 +10,15 @@
   overflow: hidden;
   border: 2px solid;
   border-radius: 8px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.card--dragging {
+  z-index: 10;
+  cursor: grabbing;
+  box-shadow: 0 8px 16px rgba(43, 33, 24, 0.25);
 }
 
 .card__title,

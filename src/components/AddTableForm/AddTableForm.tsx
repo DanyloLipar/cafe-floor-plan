@@ -24,7 +24,7 @@ export const AddTableForm = ({ onSubmit, onCancel }: AddTableFormProps) => {
 
   const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const result = validateTableForm(name, seats);
+    const result = validateTableForm(name, seats)
 
     if (result.ok) {
       onSubmit(result.values)

@@ -1,4 +1,4 @@
-import type { EquipmentKind } from '../types/floor'
+import type { EquipmentKind, Position } from '../types/floor'
 import type { TableFormValues } from '../types/form'
 import { createEquipment, createTable } from '../utils/items'
 import { usePersistedItems } from './usePersistedItems'
@@ -28,5 +28,9 @@ export const useFloorItems = () => {
     setItems((prev) => prev.filter((item) => item.id !== id))
   }
 
-  return { items, addTable, addEquipment, toggleOccupied, removeItem }
+  const moveItem = (id: string, position: Position) => {
+    setItems((prev) => prev.map((item) => (item.id === id ? { ...item, ...position } : item)))
+  }
+
+  return { items, addTable, addEquipment, toggleOccupied, removeItem, moveItem }
 }

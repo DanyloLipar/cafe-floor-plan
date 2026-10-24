@@ -1,5 +1,5 @@
 import { HALL_HEIGHT, HALL_WIDTH } from '../../constants/layout'
-import type { FloorItem } from '../../types/floor'
+import type { FloorItem, Position } from '../../types/floor'
 import { ItemCard } from '../ItemCard/ItemCard'
 import './FloorPlan.css'
 
@@ -7,9 +7,10 @@ interface FloorPlanProps {
   items: readonly FloorItem[]
   onToggleOccupied: (id: string) => void
   onRemove: (id: string) => void
+  onMove: (id: string, position: Position) => void
 }
 
-export const FloorPlan = ({ items, onToggleOccupied, onRemove }: FloorPlanProps) => {
+export const FloorPlan = ({ items, onToggleOccupied, onRemove, onMove }: FloorPlanProps) => {
   return (
     <div className="hall-scroll">
       <div
@@ -24,6 +25,7 @@ export const FloorPlan = ({ items, onToggleOccupied, onRemove }: FloorPlanProps)
             item={item}
             onToggleOccupied={onToggleOccupied}
             onRemove={onRemove}
+            onMove={onMove}
           />
         ))}
       </div>
