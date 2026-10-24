@@ -1,0 +1,47 @@
+.card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: 6px 10px;
+  overflow: hidden;
+  border: 2px solid;
+  border-radius: 8px;
+}
+
+.card__title,
+.card__meta,
+.card__status {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card__title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.card__meta,
+.card__status {
+  font-size: 13px;
+}
+
+.card--table {
+  background: #e6f4ea;
+  border-color: #2e7d46;
+}
+
+.card--table.card--occupied {
+  background: #fde8e6;
+  border-color: #c0392b;
+}
+
+.card--equipment {
+  background: #e8edf5;
+  border-color: #51658a;
+}

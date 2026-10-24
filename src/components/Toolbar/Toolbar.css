@@ -1,0 +1,18 @@
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.toolbar__button {
+  flex: 1 1 140px;
+  min-height: 44px;
+  padding: 0 16px;
+  font: inherit;
+  color: inherit;
+  background: #f4ede2;
+  border: 1px solid #b9a78f;
+  border-radius: 8px;
+  cursor: pointer;
+}
