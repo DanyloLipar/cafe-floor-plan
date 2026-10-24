@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { createInitialItems } from '../initialItems';
 import { parseItems } from '../parseItems';
 
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+
 describe('createInitialItems', () => {
   it('has the tables from the assignment', () => {
     const items = createInitialItems();
@@ -22,10 +24,11 @@ describe('createInitialItems', () => {
     expect(kinds).toContain('register');
   });
 
-  it('uses unique ids', () => {
+  it('uses unique uuids as ids', () => {
     const ids = createInitialItems().map((item) => item.id);
 
     expect(new Set(ids).size).toBe(ids.length);
+    ids.forEach((id) => expect(id).toMatch(UUID_PATTERN));
   });
 
   it('only contains items that survive parsing unchanged', () => {

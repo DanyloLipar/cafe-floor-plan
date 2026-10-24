@@ -39,7 +39,7 @@ React 19, TypeScript, Vite, React Hook Form (add-table form), uuid (item ids), c
 src/
 ├── components/   AddTableForm, FloorPlan, ItemCard, Toolbar (each with its own CSS)
 ├── hooks/        useFloorItems (state and actions), usePersistedItems, useDragItem
-├── utils/        storage and parseItems (saved data), geometry, validation, items, positionStyle, initialItems (tests in __tests__/)
+├── utils/        storage and parseItems (saved data), geometry, validation, items, positionStyle, initialItems (tests in tests/)
 ├── constants/    layout, labels, items
 ├── types/        floor (items) and form
 └── styles/       global.css

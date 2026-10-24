@@ -4,7 +4,7 @@ import { createEquipment, createTable } from '../utils/items';
 import { usePersistedItems } from './usePersistedItems';
 
 export const useFloorItems = () => {
-  const [items, setItems] = usePersistedItems();
+  const { items, setItems } = usePersistedItems();
 
   const addTable = (values: TableFormValues) => {
     const table = createTable(values);

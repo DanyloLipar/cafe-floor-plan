@@ -19,6 +19,10 @@ const items: FloorItem[] = [
   { id: 'b1', kind: 'bar', x: 50, y: 50 },
 ];
 
+// The starter ids are generated on every call, so only their presence is compared.
+const starterLayout = () =>
+  createInitialItems().map((item) => ({ ...item, id: expect.any(String) }));
+
 beforeEach(() => {
   vi.stubGlobal('localStorage', createFakeStorage());
 });
@@ -29,19 +33,19 @@ afterEach(() => {
 
 describe('loadItems', () => {
   it('returns the starter layout when nothing is saved', () => {
-    expect(loadItems()).toEqual(createInitialItems());
+    expect(loadItems()).toEqual(starterLayout());
   });
 
   it('returns the starter layout when the saved JSON is broken', () => {
     localStorage.setItem(STORAGE_KEY, '{oops');
 
-    expect(loadItems()).toEqual(createInitialItems());
+    expect(loadItems()).toEqual(starterLayout());
   });
 
   it('returns the starter layout when the saved value is not a list', () => {
     localStorage.setItem(STORAGE_KEY, '{"id":"t1"}');
 
-    expect(loadItems()).toEqual(createInitialItems());
+    expect(loadItems()).toEqual(starterLayout());
   });
 
   it('keeps a saved empty list empty', () => {
@@ -56,6 +60,13 @@ describe('loadItems', () => {
     expect(loadItems()).toEqual(items);
   });
 
+  it('keeps the starter ids once they are saved', () => {
+    const starter = loadItems();
+    saveItems(starter);
+
+    expect(loadItems()).toEqual(starter);
+  });
+
   it('returns the starter layout when storage is unavailable', () => {
     vi.stubGlobal('localStorage', {
       getItem: () => {
@@ -63,7 +74,7 @@ describe('loadItems', () => {
       },
     });
 
-    expect(loadItems()).toEqual(createInitialItems());
+    expect(loadItems()).toEqual(starterLayout());
   });
 });
 

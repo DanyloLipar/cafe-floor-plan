@@ -9,5 +9,5 @@ export const usePersistedItems = () => {
     saveItems(items);
   }, [items]);
 
-  return [items, setItems] as const;
+  return { items, setItems };
 };
