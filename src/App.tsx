@@ -1,10 +1,10 @@
-import './App.css'
-import { FloorPlan } from './components/FloorPlan/FloorPlan'
-import { Toolbar } from './components/Toolbar/Toolbar'
-import { useFloorItems } from './hooks/useFloorItems'
+import './App.css';
+import { FloorPlan } from './components/FloorPlan/FloorPlan';
+import { Toolbar } from './components/Toolbar/Toolbar';
+import { useFloorItems } from './hooks/useFloorItems';
 
-function App() {
-  const { items, addTable, addEquipment, toggleOccupied, removeItem, moveItem } = useFloorItems()
+const App = () => {
+  const { items, addTable, addEquipment, toggleOccupied, removeItem, moveItem } = useFloorItems();
 
   return (
     <main className="app">
@@ -17,7 +17,7 @@ function App() {
         onMove={moveItem}
       />
     </main>
-  )
-}
+  );
+};
 
-export default App
+export default App;

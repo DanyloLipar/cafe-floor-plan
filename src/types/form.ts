@@ -1,12 +1,9 @@
+export interface TableFormFields {
+  name: string;
+  seats: string;
+}
+
 export interface TableFormValues {
-  name: string
-  seats: number
+  name: string;
+  seats: number;
 }
-
-export interface TableFormErrors {
-  name?: string
-  seats?: string
-}
-
-export type TableFormResult =
-  { ok: true; values: TableFormValues } | { ok: false; errors: TableFormErrors }

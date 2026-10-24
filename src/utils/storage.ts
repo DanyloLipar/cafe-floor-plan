@@ -1,67 +1,68 @@
-import type { FloorItem } from '../types/floor'
-import { clampPosition } from './geometry'
-import { isEquipmentKind, isFiniteNumber, isValidSeats } from './guards'
-import { createInitialItems } from './initialItems'
+import type { FloorItem } from '../types/floor';
+import { clampPosition } from './geometry';
+import { findEquipmentKind, isValidSeats } from './guards';
+import { createInitialItems } from './initialItems';
 
-export const STORAGE_KEY = 'cafe-floor-plan:items:v1'
+export const STORAGE_KEY = 'cafe-floor-plan:items';
 
-// Rebuilds the item from known fields only, so stray or invalid data never reaches the UI.
-function parseItem(value: unknown): FloorItem | null {
-  if (typeof value !== 'object' || value === null) return null
-  const record = value as Record<string, unknown>
-  const { id, kind, x, y } = record
+const parseItem = (value: unknown): FloorItem | null => {
+  if (typeof value !== 'object' || value === null) return null;
+  const record = value as Record<string, unknown>;
+  const { id, kind, x, y } = record;
 
-  if (typeof id !== 'string' || id === '' || !isFiniteNumber(x) || !isFiniteNumber(y)) return null
-  const position = clampPosition(x, y)
+  if (typeof id !== 'string' || id === '') return null;
+  if (typeof x !== 'number' || typeof y !== 'number') return null;
+  const position = clampPosition(x, y);
 
   if (kind === 'table') {
-    const { name, seats, occupied } = record
-    if (typeof name !== 'string' || name.trim() === '') return null
-    if (!isValidSeats(seats) || typeof occupied !== 'boolean') return null
-    return { id, kind, name, seats, occupied, ...position }
+    const { name, seats, occupied } = record;
+    if (typeof name !== 'string' || name.trim() === '') return null;
+    if (typeof seats !== 'number' || !isValidSeats(seats)) return null;
+    if (typeof occupied !== 'boolean') return null;
+    return { id, kind, name, seats, occupied, ...position };
   }
 
-  if (isEquipmentKind(kind)) return { id, kind, ...position }
+  const equipmentKind = findEquipmentKind(kind);
+  if (equipmentKind !== undefined) return { id, kind: equipmentKind, ...position };
 
-  return null
-}
+  return null;
+};
 
-function readRaw(): string | null {
+const readRaw = (): string | null => {
   try {
-    return localStorage.getItem(STORAGE_KEY)
+    return localStorage.getItem(STORAGE_KEY);
   } catch {
-    return null
+    return null;
   }
-}
+};
 
-// Missing or corrupted data gives the starter layout; a saved empty list stays empty.
-export function loadItems(): FloorItem[] {
-  const raw = readRaw()
-  if (raw === null) return createInitialItems()
+export const loadItems = (): FloorItem[] => {
+  const raw = readRaw();
+  if (raw === null) return createInitialItems();
 
-  let parsed: unknown
+  let parsed: unknown;
   try {
-    parsed = JSON.parse(raw)
+    parsed = JSON.parse(raw);
   } catch {
-    return createInitialItems()
+    return createInitialItems();
   }
-  if (!Array.isArray(parsed)) return createInitialItems()
+  if (!Array.isArray(parsed)) return createInitialItems();
 
-  const seenIds = new Set<string>()
-  const items: FloorItem[] = []
+  const seenIds = new Set<string>();
+  const items: FloorItem[] = [];
   for (const entry of parsed) {
-    const item = parseItem(entry)
-    if (item === null || seenIds.has(item.id)) continue
-    seenIds.add(item.id)
-    items.push(item)
+    const item = parseItem(entry);
+    if (item === null || seenIds.has(item.id)) continue;
+    seenIds.add(item.id);
+    items.push(item);
   }
-  return items
-}
+  return items;
+};
 
-export function saveItems(items: readonly FloorItem[]): void {
+export const saveItems = (items: readonly FloorItem[]): void => {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   } catch {
-    // Storage may be full or blocked; the in-memory plan keeps working.
+    // Storage may be full or blocked, the in-memory plan keeps working.
   }
-}
+};

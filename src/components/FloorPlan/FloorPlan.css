@@ -1,14 +1,19 @@
-.hall-scroll {
-  overflow: auto;
-}
-
 .hall {
   position: relative;
-  box-sizing: content-box;
-  border: 3px solid #5b4636;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border: 3px solid var(--color-brand);
   background-color: #faf6ee;
   background-image:
     linear-gradient(#e8dfd0 1px, transparent 1px),
     linear-gradient(90deg, #e8dfd0 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+/* Below this width a 16:10 hall is too short for the card rows, so it grows and the page scrolls. */
+@media (max-width: 780px) {
+  .hall {
+    height: 480px;
+    aspect-ratio: auto;
+  }
 }

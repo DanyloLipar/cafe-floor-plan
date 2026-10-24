@@ -1,17 +1,24 @@
 .card {
+  --card-w: 160px;
+  --card-h: 120px;
+
   position: absolute;
-  top: 0;
-  left: 0;
+  /* --x / --y are 0-100: share of the space left once the card is placed. */
+  top: calc((100% - var(--card-h)) * var(--y) / 100);
+  left: calc((100% - var(--card-w)) * var(--x) / 100);
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 2px;
-  padding: 6px 10px;
+  width: var(--card-w);
+  height: var(--card-h);
+  padding: 8px;
   overflow: hidden;
   border: 2px solid;
   border-radius: 8px;
   cursor: grab;
   user-select: none;
+  /* Lets a finger move the card instead of scrolling the page. */
   touch-action: none;
 }
 
@@ -41,22 +48,29 @@
 }
 
 .card__actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 6px;
   margin-top: auto;
 }
 
 .card__button {
-  flex: 1;
-  min-height: 32px;
-  padding: 0 4px;
+  height: 32px;
+  padding: 0 2px;
   font: inherit;
   font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
   color: inherit;
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid currentcolor;
   border-radius: 6px;
   cursor: pointer;
+}
+
+/* Equipment has a single button, which spans the whole row. */
+.card__button:only-child {
+  grid-column: 1 / -1;
 }
 
 .card--table {
@@ -66,7 +80,7 @@
 
 .card--table.card--occupied {
   background: #fde8e6;
-  border-color: #c0392b;
+  border-color: var(--color-danger);
 }
 
 .card--equipment {

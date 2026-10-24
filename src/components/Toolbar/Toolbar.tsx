@@ -1,18 +1,26 @@
-import { useState } from 'react'
-import { ADD_BUTTON_ORDER } from '../../constants/buttons'
-import { ADD_BUTTON_LABELS } from '../../constants/labels'
-import type { EquipmentKind } from '../../types/floor'
-import type { TableFormValues } from '../../types/form'
-import { AddTableForm } from '../AddTableForm/AddTableForm'
-import './Toolbar.css'
+import { useState } from 'react';
+import { ADD_BUTTON_ORDER } from '../../constants/buttons';
+import { ADD_BUTTON_LABELS } from '../../constants/labels';
+import type { EquipmentKind, ItemKind } from '../../types/floor';
+import type { TableFormValues } from '../../types/form';
+import { AddTableForm } from '../AddTableForm/AddTableForm';
+import './Toolbar.css';
 
 interface ToolbarProps {
-  onAddTable: (values: TableFormValues) => void
-  onAddEquipment: (kind: EquipmentKind) => void
+  onAddTable: (values: TableFormValues) => void;
+  onAddEquipment: (kind: EquipmentKind) => void;
 }
 
 export const Toolbar = ({ onAddTable, onAddEquipment }: ToolbarProps) => {
-  const [isTableFormOpen, setIsTableFormOpen] = useState(false)
+  const [isTableFormOpen, setIsTableFormOpen] = useState(false);
+
+  const handleAddClick = (kind: ItemKind) => {
+    if (kind === 'table') {
+      setIsTableFormOpen(true);
+    } else {
+      onAddEquipment(kind);
+    }
+  };
 
   return (
     <>
@@ -22,7 +30,7 @@ export const Toolbar = ({ onAddTable, onAddEquipment }: ToolbarProps) => {
             key={kind}
             type="button"
             className="toolbar__button"
-            onClick={() => (kind === 'table' ? setIsTableFormOpen(true) : onAddEquipment(kind))}
+            onClick={() => handleAddClick(kind)}
           >
             {ADD_BUTTON_LABELS[kind]}
           </button>
@@ -32,12 +40,12 @@ export const Toolbar = ({ onAddTable, onAddEquipment }: ToolbarProps) => {
       {isTableFormOpen && (
         <AddTableForm
           onSubmit={(values) => {
-            onAddTable(values)
-            setIsTableFormOpen(false)
+            onAddTable(values);
+            setIsTableFormOpen(false);
           }}
           onCancel={() => setIsTableFormOpen(false)}
         />
       )}
     </>
-  )
-}
+  );
+};

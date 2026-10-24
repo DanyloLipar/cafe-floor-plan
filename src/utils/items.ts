@@ -1,21 +1,19 @@
-import { SPAWN_POSITION } from '../constants/layout'
-import type { EquipmentItem, EquipmentKind, TableItem } from '../types/floor'
-import type { TableFormValues } from '../types/form'
-
-const createId = (prefix: string): string =>
-  `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
+import { v4 as uuidv4 } from 'uuid';
+import { SPAWN_POSITION } from '../constants/layout';
+import type { EquipmentItem, EquipmentKind, TableItem } from '../types/floor';
+import type { TableFormValues } from '../types/form';
 
 export const createTable = ({ name, seats }: TableFormValues): TableItem => ({
-  id: createId('table'),
+  id: uuidv4(),
   kind: 'table',
   name,
   seats,
   occupied: false,
   ...SPAWN_POSITION,
-})
+});
 
 export const createEquipment = (kind: EquipmentKind): EquipmentItem => ({
-  id: createId(kind),
+  id: uuidv4(),
   kind,
   ...SPAWN_POSITION,
-})
+});

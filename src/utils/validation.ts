@@ -1,18 +1,14 @@
-import { MAX_SEATS, MIN_SEATS } from '../constants/items'
-import type { TableFormErrors, TableFormResult } from '../types/form'
-import { isValidSeats } from './guards'
+import { MAX_SEATS, MIN_SEATS } from '../constants/items';
+import { isValidSeats } from './guards';
 
-const INTEGER_PATTERN = /^\d+$/
+const INTEGER_PATTERN = /^\d+$/;
 
-export const validateTableForm = (rawName: string, rawSeats: string): TableFormResult => {
-  const name = rawName.trim()
-  const seatsText = rawSeats.trim()
-  const seats = INTEGER_PATTERN.test(seatsText) ? Number(seatsText) : NaN
+export const getNameError = (value: string): string | undefined =>
+  value.trim() === '' ? 'Вкажи назву' : undefined;
 
-  const errors: TableFormErrors = {}
-  if (name === '') errors.name = 'Вкажи назву'
-  if (!isValidSeats(seats)) errors.seats = `Вкажи ціле число від ${MIN_SEATS} до ${MAX_SEATS}`
+export const getSeatsError = (value: string): string | undefined => {
+  const text = value.trim();
+  const isValid = INTEGER_PATTERN.test(text) && isValidSeats(Number(text));
 
-  if (errors.name !== undefined || errors.seats !== undefined) return { ok: false, errors }
-  return { ok: true, values: { name, seats } }
-}
+  return isValid ? undefined : `Вкажи ціле число від ${MIN_SEATS} до ${MAX_SEATS}`;
+};

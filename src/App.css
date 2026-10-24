@@ -1,7 +1,6 @@
 .app {
-  /* Shrinks to the hall's width so the toolbar never outgrows the floor. */
-  width: fit-content;
-  max-width: 100%;
+  width: 100%;
+  max-width: 832px;
   margin: 0 auto;
   padding: 16px;
 }
