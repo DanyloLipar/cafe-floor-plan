@@ -1,7 +1,4 @@
 .card {
-  --card-w: 160px;
-  --card-h: 120px;
-
   position: absolute;
   /* --x / --y are 0-100: share of the space left once the card is placed. */
   top: calc((100% - var(--card-h)) * var(--y) / 100);

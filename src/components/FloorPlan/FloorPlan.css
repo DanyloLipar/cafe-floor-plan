@@ -13,7 +13,7 @@
 /* Below this width a 16:10 hall is too short for the card rows, so it grows and the page scrolls. */
 @media (max-width: 780px) {
   .hall {
-    height: 480px;
+    height: calc(var(--card-h) * 4);
     aspect-ratio: auto;
   }
 }

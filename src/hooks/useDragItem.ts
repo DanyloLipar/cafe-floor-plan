@@ -1,8 +1,7 @@
 import { useRef, useState, type MouseEvent, type PointerEvent } from 'react';
-import { DRAG_THRESHOLD_PX } from '../constants/interaction';
-import { MAX_COORDINATE } from '../constants/layout';
+import { DRAG_THRESHOLD_PX } from '../constants/layout';
 import type { Position } from '../types/floor';
-import { clampPosition } from '../utils/geometry';
+import { clampPosition, toPercent } from '../utils/geometry';
 
 interface DragSession {
   pointerId: number;
@@ -13,13 +12,11 @@ interface DragSession {
   isDragging: boolean;
 }
 
-const toPercent = (deltaPx: number, freePx: number): number =>
-  freePx > 0 ? (deltaPx / freePx) * MAX_COORDINATE : 0;
-
 export const useDragItem = (origin: Position, onDrop: (position: Position) => void) => {
+  const [dragPosition, setDragPosition] = useState<Position | null>(null);
+
   const sessionRef = useRef<DragSession | null>(null);
   const suppressClickRef = useRef(false);
-  const [dragPosition, setDragPosition] = useState<Position | null>(null);
 
   const positionFor = (session: DragSession, event: PointerEvent<HTMLElement>): Position =>
     clampPosition(
@@ -77,6 +74,7 @@ export const useDragItem = (origin: Position, onDrop: (position: Position) => vo
     }, 0);
 
     setDragPosition(null);
+
     if (!commit) return;
 
     const final = positionFor(session, event);

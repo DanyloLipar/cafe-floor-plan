@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ADD_BUTTON_ORDER } from '../../constants/buttons';
+import { ADD_BUTTON_ORDER } from '../../constants/items';
 import { ADD_BUTTON_LABELS } from '../../constants/labels';
 import type { EquipmentKind, ItemKind } from '../../types/floor';
 import type { TableFormValues } from '../../types/form';

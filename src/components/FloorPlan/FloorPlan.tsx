@@ -11,7 +11,7 @@ interface FloorPlanProps {
 
 export const FloorPlan = ({ items, onToggleOccupied, onRemove, onMove }: FloorPlanProps) => {
   return (
-    <div className="hall" role="region" aria-label="Hall Plan">
+    <div className="hall" role="region" aria-label="План залу">
       {items.map((item) => (
         <ItemCard
           key={item.id}

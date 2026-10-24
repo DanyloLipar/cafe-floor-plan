@@ -11,6 +11,9 @@
   --color-border: #b9a78f;
   --color-brand: #5b4636;
   --color-danger: #c0392b;
+
+  --card-w: 160px;
+  --card-h: 120px;
 }
 
 body {

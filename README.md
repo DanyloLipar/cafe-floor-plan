@@ -27,10 +27,11 @@ npm run dev
 | `npm run build`  | Type-check and build to `dist` |
 | `npm run lint`   | Run ESLint                     |
 | `npm run format` | Format files with Prettier     |
+| `npm test`       | Run unit tests (Vitest)        |
 
 ## Stack
 
-React 19, TypeScript, Vite, React Hook Form (add-table form), uuid (item ids), ESLint and Prettier.
+React 19, TypeScript, Vite, React Hook Form (add-table form), uuid (item ids), classnames, Vitest, ESLint and Prettier.
 
 ## Project structure
 
@@ -38,14 +39,13 @@ React 19, TypeScript, Vite, React Hook Form (add-table form), uuid (item ids), E
 src/
 ├── components/   AddTableForm, FloorPlan, ItemCard, Toolbar (each with its own CSS)
 ├── hooks/        useFloorItems (state and actions), usePersistedItems, useDragItem
-├── utils/        storage (load/save and validation of saved data), geometry, guards, validation, items
-├── constants/    layout, labels, items, buttons, interaction
+├── utils/        storage and parseItems (saved data), geometry, validation, items, positionStyle, initialItems (tests in __tests__/)
+├── constants/    layout, labels, items
 ├── types/        floor (items) and form
 └── styles/       global.css
 ```
 
 ## Limitations
 
-- No automated tests.
+- Tests cover the pure logic (validation, geometry, saved-data parsing and storage); components and hooks are not tested.
 - Changes are not synced between open tabs.
-- Dragging is pointer-only; there is no keyboard alternative.

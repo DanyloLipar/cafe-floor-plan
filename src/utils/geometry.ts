@@ -10,3 +10,6 @@ export const clampPosition = (x: number, y: number): Position => ({
   x: roundCoordinate(clampCoordinate(x)),
   y: roundCoordinate(clampCoordinate(y)),
 });
+
+export const toPercent = (deltaPx: number, freePx: number): number =>
+  freePx > 0 ? (deltaPx / freePx) * MAX_COORDINATE : 0;

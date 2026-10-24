@@ -1,7 +1,8 @@
-import type { CSSProperties } from 'react';
+import classNames from 'classnames';
 import { EQUIPMENT_LABELS } from '../../constants/labels';
 import { useDragItem } from '../../hooks/useDragItem';
 import type { FloorItem, Position } from '../../types/floor';
+import { getPositionStyle } from '../../utils/positionStyle';
 import './ItemCard.css';
 
 interface ItemCardProps {
@@ -14,19 +15,19 @@ interface ItemCardProps {
 export const ItemCard = ({ item, onToggleOccupied, onRemove, onMove }: ItemCardProps) => {
   const { position, isDragging, handlers } = useDragItem(item, (next) => onMove(item.id, next));
 
-  const style = { '--x': position.x, '--y': position.y } as CSSProperties;
   const title = item.kind === 'table' ? item.name : EQUIPMENT_LABELS[item.kind];
-  const className = [
-    'card',
-    item.kind === 'table' ? 'card--table' : 'card--equipment',
-    item.kind === 'table' && item.occupied && 'card--occupied',
-    isDragging && 'card--dragging',
-  ]
-    .filter(Boolean)
-    .join(' ');
 
   return (
-    <article className={className} style={style} {...handlers}>
+    <article
+      className={classNames('card', {
+        'card--table': item.kind === 'table',
+        'card--equipment': item.kind !== 'table',
+        'card--occupied': item.kind === 'table' && item.occupied,
+        'card--dragging': isDragging,
+      })}
+      style={getPositionStyle(position)}
+      {...handlers}
+    >
       <h2 className="card__title">{title}</h2>
 
       {item.kind === 'table' && (
