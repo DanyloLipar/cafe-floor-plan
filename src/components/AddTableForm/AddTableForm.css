@@ -1,0 +1,69 @@
+.table-dialog {
+  width: min(360px, calc(100vw - 32px));
+  padding: 0;
+  color: inherit;
+  border: 1px solid #b9a78f;
+  border-radius: 12px;
+}
+
+.table-dialog::backdrop {
+  background: rgba(43, 33, 24, 0.4);
+}
+
+.table-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+}
+
+.table-form__title {
+  margin: 0;
+  font-size: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field input {
+  min-height: 44px;
+  padding: 0 12px;
+  font: inherit;
+  border: 1px solid #b9a78f;
+  border-radius: 8px;
+}
+
+.field input[aria-invalid='true'] {
+  border-color: #c0392b;
+}
+
+.field__error {
+  margin: 0;
+  font-size: 13px;
+  color: #c0392b;
+}
+
+.table-form__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.table-form__button {
+  flex: 1;
+  min-height: 44px;
+  font: inherit;
+  color: inherit;
+  background: #f4ede2;
+  border: 1px solid #b9a78f;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.table-form__button--primary {
+  color: #fff;
+  background: #5b4636;
+  border-color: #5b4636;
+}

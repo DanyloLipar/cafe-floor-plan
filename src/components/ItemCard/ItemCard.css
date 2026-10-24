@@ -31,6 +31,25 @@
   font-size: 13px;
 }
 
+.card__actions {
+  display: flex;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.card__button {
+  flex: 1;
+  min-height: 32px;
+  padding: 0 4px;
+  font: inherit;
+  font-size: 12px;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid currentcolor;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 .card--table {
   background: #e6f4ea;
   border-color: #2e7d46;

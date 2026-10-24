@@ -5,9 +5,11 @@ import './FloorPlan.css'
 
 interface FloorPlanProps {
   items: readonly FloorItem[]
+  onToggleOccupied: (id: string) => void
+  onRemove: (id: string) => void
 }
 
-export const FloorPlan = ({ items }: FloorPlanProps) => {
+export const FloorPlan = ({ items, onToggleOccupied, onRemove }: FloorPlanProps) => {
   return (
     <div className="hall-scroll">
       <div
@@ -17,7 +19,12 @@ export const FloorPlan = ({ items }: FloorPlanProps) => {
         style={{ width: HALL_WIDTH, height: HALL_HEIGHT }}
       >
         {items.map((item) => (
-          <ItemCard key={item.id} item={item} />
+          <ItemCard
+            key={item.id}
+            item={item}
+            onToggleOccupied={onToggleOccupied}
+            onRemove={onRemove}
+          />
         ))}
       </div>
     </div>

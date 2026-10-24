@@ -6,9 +6,11 @@ import './ItemCard.css'
 
 interface ItemCardProps {
   item: FloorItem
+  onToggleOccupied: (id: string) => void
+  onRemove: (id: string) => void
 }
 
-export const ItemCard = ({ item }: ItemCardProps) => {
+export const ItemCard = ({ item, onToggleOccupied, onRemove }: ItemCardProps) => {
   const style: CSSProperties = {
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
@@ -24,13 +26,38 @@ export const ItemCard = ({ item }: ItemCardProps) => {
         <h2 className="card__title">{item.name}</h2>
         <p className="card__meta">Місць: {item.seats}</p>
         <p className="card__status">{item.occupied ? 'Зайнятий' : 'Вільний'}</p>
+        <div className="card__actions">
+          <button type="button" className="card__button" onClick={() => onToggleOccupied(item.id)}>
+            {item.occupied ? 'Звільнити' : 'Зайняти'}
+          </button>
+          <button
+            type="button"
+            className="card__button"
+            aria-label={`Прибрати ${item.name}`}
+            onClick={() => onRemove(item.id)}
+          >
+            Прибрати
+          </button>
+        </div>
       </article>
     )
   }
 
+  const label = EQUIPMENT_LABELS[item.kind]
+
   return (
     <article className="card card--equipment" style={style}>
-      <h2 className="card__title">{EQUIPMENT_LABELS[item.kind]}</h2>
+      <h2 className="card__title">{label}</h2>
+      <div className="card__actions">
+        <button
+          type="button"
+          className="card__button"
+          aria-label={`Прибрати ${label}`}
+          onClick={() => onRemove(item.id)}
+        >
+          Прибрати
+        </button>
+      </div>
     </article>
   )
 }
